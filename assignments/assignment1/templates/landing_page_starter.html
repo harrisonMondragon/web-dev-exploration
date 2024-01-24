@@ -1,16 +1,16 @@
-<!-- Can you improve this landing page for us, we want it to look amazing and be responsive -->
-<!-- My son Billy setup the page like this for us -->
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" href="<UCID>_styles.css"> <!-- Add your stylesheet here -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='30088805_styles.css') }}">
 </head>
 <!-- the background colour of the page should compliment the other colours being used -->
 <body>
     <header class="hero-section">
-        <!-- I can't get this to work -->
+        <!-- align-left is still whack -->
         <div style="align:left">
-            <img src="images/logo.svg" alt="our-logo">
+            <svg width="100" height="100">
+                <use xlink:href="{{ url_for('static', filename='images/logo.svg') }}#logo"></use>
+            </svg>
         </div>
 
         <h1>Welcome to Application</h1>
