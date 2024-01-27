@@ -1,4 +1,39 @@
 .hero-section {
-    background-color: #d12828;
+    background-color: #4CAF50;
     color: #ffffff;
+}
+
+@media screen and (min-width: 640px) {
+    .hero-section {
+        background-image: url(images/background-extra-small.jpg);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .hero-section {
+        background-image: url(images/background-small.jpg);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .hero-section {
+        background-image: url(images/background-medium.jpg);
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .hero-section {
+        background-image: url(images/background-large.jpg);
+    }
+}
+
+@media screen and (min-width: 2560px) {
+    .hero-section {
+        background-image: url(images/background-extra-large.jpg);
+    }
+}
+
+ol.reasons {
+    display: inline-block;
+    text-align: left;
 }
