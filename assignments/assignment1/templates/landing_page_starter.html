@@ -11,17 +11,13 @@
                 <use xlink:href="{{ url_for('static', filename='images/logo.svg') }}#logo"></use>
             </svg>
         </div>
-
         <h1>Welcome to Application</h1>
-        <!-- This section should have a background image behind the Welcome to Application -->
     </header>
-    <!-- I really wish we could have a flourish in the background of these feature-section -->
 
     <!-- Each of these sections should have colours that compliment the colour of our background image and the foreground image -->
     <section class="features-section">
         <article class="feature">
             <h2>Top 5 Reasons to Choose Us</h2>
-            <!-- <p>Why would you want to choose us? Here are the top 5 reasons why we are the best: 1. Quality Assurance, 2. 24/7 Customer Support, 3. Affordable Pricing, 4. Expert Team, Fast Delivery</p> -->
             <p>Why would you want to choose us? Here are the top 5 reasons why we are the best;</p>
             <ol class="reasons">
                 <li>Quality Assurance</li>
@@ -40,6 +36,16 @@
         <h2>About Us</h2>
         <p>Information about the company.</p>
         <p>Click this link, it opens in a new window: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">MDN Docs</a></p>
+        <!-- <div class="company-image-container">
+            <img src="../static/images/image-medium.png">
+        </div> -->
+        <picture>
+            <source media="(min-width:1280px)" srcset="../static/images/image-extra-large.png">
+            <source media="(min-width:640px)" srcset="../static/images/image-large.png">
+            <source media="(min-width:320px)" srcset="../static/images/image-medium.png">
+            <source media="(min-width:180px)" srcset="../static/images/image-small.png">
+            <img src="../static/images/image-medium.png" alt="Company Image">
+        </picture>
         <!-- Insert the company image here, it's in the images directory called image-<size>.png -->
     </section>
     <footer class="cta-section">
