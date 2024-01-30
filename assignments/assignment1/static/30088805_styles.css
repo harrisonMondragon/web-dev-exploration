@@ -40,28 +40,39 @@
     color: #ffffff;
 }
 
-ol.reasons {
+ol.landing_page_list {
     display: inline-block;
     text-align: left;
 }
 
+.landing_page_list li {
+    padding-left: 10px; /* Adjust the padding to create space for the custom marker */
+}
+
+.landing_page_list li::marker {
+    content: "\2605"; /* Unicode character for a solid star */
+    color: #ffffff;
+    font-size: 18px;
+    margin-right: 30px;
+    padding-right: 30px;
+}
+
 .landing_page_button{
-    display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
-    border: 2px solid transparent; /* Add a transparent border initially */
+    border: 2px solid transparent;
     border-radius: 5px;
     color: #ffffff;
-    background-color: #3498db; /* Primary color */
+    background-color: #3498db;
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .landing_page_button:hover {
     color: #ffffff;
-    background-color: #3c7195; /* Primary color on hover */
-    border-color: #000000; /* Darker shade as border on hover */
+    background-color: #3c7195;
+    border-color: #000000;
 }
