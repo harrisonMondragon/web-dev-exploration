@@ -5,12 +5,10 @@
 
     /* Flexbox */
     display: flex;
-    flex-direction: column; /* Stack in columns */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
 
     /* Font */
-    font-size: 1.5vh;
     color: #ffffff;
 
     /* Background */
@@ -24,6 +22,7 @@
 @media (orientation: portrait) {
     .hero-section {
         flex-direction: column;
+        font-size: 1.5vh;
     }
     .hero-section svg {
         width: 10vh;
@@ -34,6 +33,7 @@
     .hero-section {
         flex-direction: row;
         gap: 5vh;
+        font-size: 3vh;
     }
     .hero-section svg {
         width: 15vh;
@@ -71,10 +71,47 @@
 /* ------------------ Features Section ------------------ */
 
 .features-section {
-    background-image: url(images/flourish.png);
-    background-color: #333;
-    background-position: center;
+
+    /* Flexbox */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+
+    /* Font */
     color: #ffffff;
+
+    /* Flourish lines are #ffffff1f */
+    background-image: url(images/flourish.png);
+    background-color: #2f2b28;
+    background-size: contain;
+    background-position: center;
+}
+
+.features-section p {
+    text-align: left;
+}
+
+/* Respond to different screen orientations */
+@media (orientation: portrait) {
+    .features-section {
+        flex-direction: column;
+        font-size: 1.35vh;
+    }
+}
+@media (orientation: landscape) {
+    .features-section {
+        flex-direction: row;
+        gap: 10vw;
+        font-size: 2vh;
+    }
+}
+
+.feature {
+    /* Flexbox */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-direction: column;
 }
 
 ol.landing_page_list {
@@ -95,21 +132,20 @@ ol.landing_page_list {
 }
 
 .landing_page_button{
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
     font-size: 16px;
     font-weight: bold;
     text-align: center;
-    text-decoration: none;
     border: 2px solid transparent;
     border-radius: 5px;
     color: #ffffff;
-    background-color: #3498db;
+    background-color: #274690;
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .landing_page_button:hover {
     color: #ffffff;
-    background-color: #3c7195;
-    border-color: #000000;
+    background-color: #2747908f;
+    border-color: #ffffff;
 }
