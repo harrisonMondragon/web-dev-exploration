@@ -1,37 +1,74 @@
+/* ------------------ Hero Section ------------------ */
+
 .hero-section {
-    background-color: #333;
+    height: 15vh;
+
+    /* Flexbox */
+    display: flex;
+    flex-direction: column; /* Stack in columns */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+
+    /* Font */
+    font-size: 1.5vh;
     color: #ffffff;
+
+    /* Background */
+    background-color: #2f2b28;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-@media screen and (min-width: 640px) {
+/* Respond to different screen orientations */
+@media (orientation: portrait) {
+    .hero-section {
+        flex-direction: column;
+    }
+    .hero-section svg {
+        width: 10vh;
+        height: 10vh;
+    }
+}
+@media (orientation: landscape) {
+    .hero-section {
+        flex-direction: row;
+        gap: 5vh;
+    }
+    .hero-section svg {
+        width: 15vh;
+        height: 15vh;
+    }
+}
+
+/* Dynamic Backgrounds */
+@media screen and (max-width: 2560px) {
+    .hero-section {
+        background-image: url(images/background-extra-large.jpg);
+    }
+}
+@media screen and (max-width: 1920px) {
+    .hero-section {
+        background-image: url(images/background-large.jpg);
+    }
+}
+@media screen and (max-width: 1024px) {
+    .hero-section {
+        background-image: url(images/background-medium.jpg);
+    }
+}
+@media screen and (max-width: 768px) {
+    .hero-section {
+        background-image: url(images/background-small.jpg);
+    }
+}
+@media screen and (max-width: 640px) {
     .hero-section {
         background-image: url(images/background-extra-small.jpg);
     }
 }
 
-@media screen and (min-width: 768px) {
-    .hero-section {
-        background-image: url(images/background-small.jpg);
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    .hero-section {
-        background-image: url(images/background-medium.jpg);
-    }
-}
-
-@media screen and (min-width: 1920px) {
-    .hero-section {
-        background-image: url(images/background-large.jpg);
-    }
-}
-
-@media screen and (min-width: 2560px) {
-    .hero-section {
-        background-image: url(images/background-extra-large.jpg);
-    }
-}
+/* ------------------ Features Section ------------------ */
 
 .features-section {
     background-image: url(images/flourish.png);
