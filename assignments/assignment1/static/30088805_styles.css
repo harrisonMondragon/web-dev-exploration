@@ -1,3 +1,9 @@
+body{
+    color: #ffffff;
+    /* background-color: #302b27; */
+    /* background-color: #2f2b28; */
+}
+
 /* ------------------ Hero Section ------------------ */
 
 .hero-section {
@@ -16,6 +22,8 @@
     background-position: right bottom;
     background-repeat: no-repeat;
     background-size: cover;
+
+    border-bottom: 1px solid #ccc;
 }
 
 /* Respond to different screen orientations */
@@ -146,6 +154,27 @@ ol.landing-page-list {
         gap: 10vw;
         font-size: 2vh;
     }
+}
+
+/* ------------------ About Section ------------------ */
+
+.about-section{
+    background-color: #2f2b28;
+}
+
+.about-section a {
+    color: #ccc;
+}
+
+a:visited {
+    color: #274690;
+}
+
+/* ------------------ Cta Section ------------------ */
+
+.cta-section{
+    background-color: #2f2b28;
+    border-top: 1px solid #ccc;
 }
 
 /* ------------------ Buttons ------------------ */
