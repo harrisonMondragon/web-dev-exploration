@@ -6,19 +6,16 @@
 
 <body>
     <header class="hero-section">
-        <!-- I like it without the div more -->
-        <!-- <div> -->
-            <svg>
-                <use href="{{ url_for('static', filename='images/logo.svg') }}#logo"></use>
-            </svg>
-        <!-- </div> -->
+        <svg>
+            <use href="{{ url_for('static', filename='images/logo.svg') }}#logo"></use>
+        </svg>
         <h1>Welcome to Application</h1>
     </header>
 
     <section class="features-section">
         <article class="feature">
             <h2>Top 5 Reasons to Choose Us</h2>
-            <p>Why would you want to choose us?<br/>Top 5 reasons why we are the best:</p>
+            <p>Why would you want to choose us?<br/>Here are the top 5 reasons why we are the best:</p>
             <ol class="landing-page-list">
                 <li>Quality Assurance</li>
                 <li>24/7 Customer Support</li>
@@ -27,6 +24,7 @@
                 <li>Fast Delivery</li>
             </ol>
         </article>
+
         <article class="feature">
             <h2>Our Products include:</h2>
             <div class="landing-page-grid">
