@@ -11,12 +11,10 @@
 /* ------------------ Hero Section ------------------ */
 
 .hero-section {
-    /* Flexbox */
-    display: flex;
+    display: flex; /* Flexbox */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
 
-    /* Background */
     background-position: right bottom;
     background-repeat: no-repeat;
     background-size: auto;
@@ -73,8 +71,8 @@
 
 .feature {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
 }
 
@@ -86,6 +84,7 @@ ol.landing-page-list {
 .landing-page-list li {
     padding-left: 10px; /* Create space for the custom marker */
 }
+/* Marker pseudo element */
 .landing-page-list li::marker {
     content: "\2605"; /* Solid star */
     margin-right: 30px;
@@ -108,7 +107,7 @@ ol.landing-page-list {
 .about-section a {
     color: #ccc;
 }
-
+/* Visited pseudo class */
 a:visited {
     color: #274690;
 }
@@ -131,7 +130,7 @@ a:visited {
     border-radius: 5px;
     background-color: #274690;
 }
-
+/* Hover pseudo class */
 .landing_page_button:hover {
     background-color: #15264e;
     border-color: #ffffff;
