@@ -49,8 +49,7 @@ h2 {
 
 /* Question container styles */
 #question-container {
-    flex: 1,
-    display: none;
+    display: flex;
 }
 
 #question {
@@ -97,4 +96,20 @@ h2 {
 
 #next-btn:hover {
     background-color: #0056b3;
+}
+
+/* CSS for the progress bar */
+.progress-bar {
+    width: 100%;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.progress {
+    width: 0%;
+    height: 20px;
+    background-color: #0056b3;
+    border-radius: 5px;
 }
