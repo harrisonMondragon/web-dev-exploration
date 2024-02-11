@@ -17,10 +17,22 @@
             </div>
 
             <div id="question-container" style="display: none">
-                <h2 id="question"></h2>
-                <ul id="options"></ul>
                 <div class="progress-bar">
                     <div class="progress"></div>
+                </div>
+                <h2 id="question"></h2>
+                <ul id="options"></ul>
+                <div id="correct-answer-container" style="display: none">
+                    <p>The correct answer was:</p>
+                    <p id="correct-answer"></p>
+                    <div id="current-score-container">
+                        <p>Current Score:&nbsp</p>
+                        <p id="current-score"></p>
+                        <p>/10</p>
+                    </div>
+                    <button id="next-btn" onclick="nextQuestion(quiz)">
+                        Next
+                    </button>
                 </div>
             </div>
 
