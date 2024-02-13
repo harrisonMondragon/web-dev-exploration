@@ -21,16 +21,16 @@ class Quiz {
         this.quizQuestions = questions;
         this.quantity = questions.length;
         this.score = 0;
-        this.currentQuestionIndex = 0;
+        this.currentQuestionIndex = -1;
         this.questionAnswered = false;
         this.name = name;
         this.user = user;
     }
 
     // Generator function to get the next question
-    *nextQuestionGenerator(){
+    *nextQuestionGenerator() {
         while (this.currentQuestionIndex < this.quizQuestions.length - 1) {
-            console.log(this.currentQuestionIndex)
+            console.log(this.currentQuestionIndex);
             yield this.quizQuestions[this.currentQuestionIndex++];
         }
     }
@@ -54,7 +54,8 @@ let username = "test";
 
 // Function to update the progress bar
 function updateProgressBar(quiz) {
-    const progress = (quiz.currentQuestionIndex / quiz.quizQuestions.length) * 100;
+    const progress =
+        (quiz.currentQuestionIndex / quiz.quizQuestions.length) * 100;
     console.log(progress);
     document.querySelector(".progress").style.width = progress + "%";
 }
@@ -184,12 +185,8 @@ function saveDataToBrowser(score, quantity, name, username) {
 
 async function fetchQuestions() {
     try {
-        // URL parameters
-        const category = 22; // Extracted category from the URL
-        const difficulty = "medium"; // Extracted difficulty from the URL
-        const quantity = 2;
         const response = await fetch(
-            `https://opentdb.com/api.php?amount=${quantity}&category=${category}&difficulty=${difficulty}&type=multiple`
+            "https://opentdb.com/api.php?amount=10&category=22&difficulty=medium&type=multiple"
         );
         const data = await response.json();
         const questionArray = data.results.map(
@@ -203,7 +200,7 @@ async function fetchQuestions() {
         console.log(questionArray);
         return new Quiz(
             questionArray,
-            JSON.stringify(difficulty + "Geography Quiz"),
+            JSON.stringify("Medium Geography Quiz"),
             username
         );
     } catch (error) {
