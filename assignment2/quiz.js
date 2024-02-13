@@ -1,4 +1,8 @@
-let quiz;
+class User {
+    constructor(username) {
+        this.username = username;
+    }
+}
 
 class Question {
     constructor(question, options, correctOption) {
@@ -13,22 +17,27 @@ class Question {
 }
 
 class Quiz {
-    constructor(questions) {
+    constructor(questions, name, user) {
         this.quizQuestions = questions;
+        this.quantity = questions.length;
         this.score = 0;
-        this.currentQuestionIndex = 0;
+        this.currentQuestionIndex = -1;
         this.questionAnswered = false;
+        this.name = name;
+        this.user = user;
     }
 
     // Generator function to get the next question
-    *nextQuestionGenerator(){
+    *nextQuestionGenerator() {
         while (this.currentQuestionIndex < this.quizQuestions.length - 1) {
-            console.log(this.currentQuestionIndex)
+            console.log(this.currentQuestionIndex);
             yield this.quizQuestions[this.currentQuestionIndex++];
         }
     }
 }
 
+const quizContainer = document.getElementById("quiz-container");
+const usernameContainer = document.getElementById("username-container");
 const startContainer = document.getElementById("start-container");
 const questionContainer = document.getElementById("question-container");
 const resultsContainer = document.getElementById("results-container");
@@ -37,12 +46,38 @@ const optionsElement = document.getElementById("options");
 const correctAnswerContainer = document.getElementById(
     "correct-answer-container"
 );
+const quizHistoryElement = document.getElementById("quiz-history-item");
+const usernameElement = document.getElementById("username-input");
+
+let quiz;
+let username = "test";
 
 // Function to update the progress bar
 function updateProgressBar(quiz) {
-    const progress = (quiz.currentQuestionIndex / quiz.quizQuestions.length) * 100;
+    const progress =
+        (quiz.currentQuestionIndex / quiz.quizQuestions.length) * 100;
     console.log(progress);
     document.querySelector(".progress").style.width = progress + "%";
+}
+
+function grabUsername() {
+    username = usernameElement.value;
+    if (username === "") {
+        username = "test";
+    }
+    console.log(username);
+    usernameContainer.style.display = "none";
+    startContainer.style.display = "block";
+}
+
+function showQuizHistory() {
+    const quizHistory = JSON.parse(localStorage.getItem(username)) || [];
+    quizHistoryElement.innerHTML = "";
+    quizHistory.forEach((quizData) => {
+        const listItem = document.createElement("p");
+        listItem.textContent = `${quizData.name} - Score: ${quizData.score}/${quizData.quantity}`;
+        quizHistoryElement.appendChild(listItem);
+    });
 }
 
 // Function to start the quiz
@@ -125,6 +160,7 @@ function nextQuestion(quiz) {
 }
 
 function showResults(quiz) {
+    saveDataToBrowser(quiz.score, quiz.quantity, quiz.name, quiz.user);
     questionContainer.style.display = "none";
     document.getElementById("results-container").style.display = "block";
     document.getElementById("score").innerText = quiz.score;
@@ -133,6 +169,18 @@ function showResults(quiz) {
 function returnToStart() {
     resultsContainer.style.display = "none";
     startContainer.style.display = "block";
+}
+
+function saveDataToBrowser(score, quantity, name, username) {
+    const jsonData = {
+        name: name,
+        score: score,
+        quantity: quantity,
+    };
+    let quizHistory = localStorage.getItem(`${username}`);
+    quizHistory = quizHistory ? JSON.parse(quizHistory) : [];
+    quizHistory.push(jsonData);
+    localStorage.setItem(`${username}`, JSON.stringify(quizHistory));
 }
 
 async function fetchQuestions() {
@@ -150,8 +198,16 @@ async function fetchQuestions() {
                 )
         );
         console.log(questionArray);
-        return new Quiz(questionArray);
+        return new Quiz(
+            questionArray,
+            JSON.stringify("Medium Geography Quiz"),
+            username
+        );
     } catch (error) {
-        return console.error("Error fetching questions:", error);
+        location.reload();
+        window.alert(
+            "Error fetching questions, you have been redirected to the home page. Please try again in a few moments."
+        );
+        console.error("here Error fetching questions:", error);
     }
 }
