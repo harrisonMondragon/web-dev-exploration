@@ -1,5 +1,4 @@
-John: Show correct answer after every question
-Harry: Progress bar of quizJohn: Add user functionality
+John: Add user functionality
 Harry: Generator function
 
 Still to do:

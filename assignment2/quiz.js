@@ -26,6 +26,14 @@ class Quiz {
         this.name = name;
         this.user = user;
     }
+
+    // Generator function to get the next question
+    *nextQuestionGenerator(){
+        while (this.currentQuestionIndex < this.quizQuestions.length - 1) {
+            console.log(this.currentQuestionIndex)
+            yield this.quizQuestions[this.currentQuestionIndex++];
+        }
+    }
 }
 
 const quizContainer = document.getElementById("quiz-container");
@@ -46,8 +54,7 @@ let username = "test";
 
 // Function to update the progress bar
 function updateProgressBar(quiz) {
-    const progress =
-        ((quiz.currentQuestionIndex + 1) / quiz.quizQuestions.length) * 100;
+    const progress = (quiz.currentQuestionIndex / quiz.quizQuestions.length) * 100;
     console.log(progress);
     document.querySelector(".progress").style.width = progress + "%";
 }
@@ -78,7 +85,7 @@ async function startQuiz() {
         quiz = await fetchQuestions();
         startContainer.style.display = "none";
         questionContainer.style.display = "block";
-        displayQuestion(quiz);
+        nextQuestion(quiz);
     } catch (error) {
         console.error("Error starting quiz:", error);
     }
@@ -142,11 +149,10 @@ function displayCorrectAnswer(quiz, wasCorrect) {
 }
 
 function nextQuestion(quiz) {
-    console.log("clicked");
-    quiz.currentQuestionIndex++;
-    if (quiz.currentQuestionIndex < quiz.quizQuestions.length) {
+    const nextQuestionIterator = quiz.nextQuestionGenerator().next();
+    if (!nextQuestionIterator.done) {
         quiz.questionAnswered = false;
-        displayQuestion(quiz);
+        displayQuestion(quiz, nextQuestionIterator.value);
     } else {
         showResults(quiz);
     }
