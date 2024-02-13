@@ -189,14 +189,15 @@ async function fetchQuestions() {
             "https://opentdb.com/api.php?amount=10&category=22&difficulty=medium&type=multiple"
         );
         const data = await response.json();
-        const questionArray = data.results.map(
-            (questionData) =>
-                new Question(
-                    questionData.question,
-                    questionData.incorrect_answers,
-                    questionData.correct_answer
-                )
-        );
+        const questionArray = data.results.map((questionData) => {
+            return new Question(
+                decodeString(questionData.question),
+                questionData.incorrect_answers.map((option) =>
+                    decodeString(option)
+                ),
+                decodeString(questionData.correct_answer)
+            );
+        });
         console.log(questionArray);
         return new Quiz(
             questionArray,
@@ -209,5 +210,11 @@ async function fetchQuestions() {
             "Error fetching questions, you have been redirected to the home page. Please try again in a few moments."
         );
         console.error("here Error fetching questions:", error);
+    }
+
+    function decodeString(string) {
+        const tempElement = document.createElement("div");
+        tempElement.innerHTML = string;
+        return tempElement.textContent;
     }
 }
