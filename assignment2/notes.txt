@@ -1,8 +1,5 @@
-John: Add user functionality
-Harry: Generator function
-
 Still to do:
- - bind apply call (bonus points for using all)
- - fix up styling
- - error handling (on API fetch fail)
- - Dynamic question difficulty adjustment (unlikely)
+ - [Jrn] Objectify everything
+ - [Harra] fix up styling
+ - [Jrn] Fix html encoding
+ - [Harra] bind apply call (bonus points for using all)
