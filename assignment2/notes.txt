@@ -1,2 +1,9 @@
 John: Show correct answer after every question
-Harry: Progress bar of quiz
+Harry: Progress bar of quizJohn: Add user functionality
+Harry: Generator function
+
+Still to do:
+ - bind apply call (bonus points for using all)
+ - fix up styling
+ - error handling (on API fetch fail)
+ - Dynamic question difficulty adjustment (unlikely)
