@@ -96,7 +96,7 @@ class Quiz {
         currentQuestion.options.forEach((option) => {
             const button = document.createElement("button");
             button.innerText = option;
-            button.classList.add("option-btn");
+            button.classList.add("option-button");
             button.addEventListener("click", (event) =>
                 this.checkAnswer(event)
             );
@@ -125,7 +125,7 @@ class Quiz {
     }
 
     disableOptions(selectedOption) {
-        const answerButtons = document.querySelectorAll(".option-btn");
+        const answerButtons = document.querySelectorAll(".option-button");
         answerButtons.forEach((button) => {
             if (button.innerText === selectedOption) {
                 button.classList.add("selected-option");
@@ -139,8 +139,8 @@ class Quiz {
             this.quizQuestions[this.currentQuestionIndex].correctOption;
         correctAnswerContainer.style.display = "block";
         correctAnswerContainer.style.backgroundColor = wasCorrect
-            ? "green"
-            : "red";
+            ? "#B8FBA6"
+            : "#FF8488";
         document.getElementById("correct-answer").innerText = correctAnswer;
         document.getElementById("current-score").innerText = this.score;
     }
@@ -171,7 +171,7 @@ async function runQuiz() {
 async function fetchQuestions() {
     try {
         const response = await fetch(
-            "https://opentdb.com/api.php?amount=10&category=22&difficulty=medium&type=multiple"
+            "https://opentdb.com/api.php?amount=3&category=22&difficulty=medium&type=multiple"
         );
         const data = await response.json();
         const questionArray = data.results.map((questionData) => {

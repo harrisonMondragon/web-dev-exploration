@@ -8,6 +8,7 @@
     </head>
     <body>
         <div id="quiz-container">
+
             <div id="username-container">
                 <h1>Welcome to the Quiz!</h1>
                 <p>Enter your name to start the quiz.</p>
@@ -16,13 +17,14 @@
                     id="username-input"
                     placeholder="Enter your name"
                 />
-                <button id="start-btn" onclick="setupQuiz()">Next</button>
+                <button class="flow-button" onclick="setupQuiz()">Next</button>
             </div>
+
             <div id="start-container" style="display: none">
                 <h1>Welcome to the Quiz!</h1>
                 <p>Click the button below to start the quiz.</p>
-                <button id="start-btn" onclick="runQuiz()">Start Quiz</button>
-                <button id="start-btn" onclick="user.showQuizHistory()">
+                <button class="flow-button" onclick="runQuiz()">Start Quiz</button>
+                <button class="flow-button" onclick="user.showQuizHistory()">
                     Show Quiz History
                 </button>
                 <div id="quiz-history-container">
@@ -30,6 +32,7 @@
                     <ul id="quiz-history-item"></ul>
                 </div>
             </div>
+
             <div id="question-container" style="display: none">
                 <div class="progress-bar">
                     <div class="progress"></div>
@@ -44,19 +47,21 @@
                         <p id="current-score"></p>
                         <p>/10</p>
                     </div>
-                    <button id="next-btn" onclick="quiz.nextQuestion()">
+                    <button class="flow-button" onclick="quiz.nextQuestion()">
                         Next
                     </button>
                 </div>
             </div>
+
             <div id="results-container" style="display: none">
                 <h2>Results</h2>
                 <p>Your Score:</p>
                 <p id="score"></p>
-                <button id="finish-btn" onclick="quiz.returnToStart()">
+                <button class="flow-button" onclick="quiz.returnToStart()">
                     Return to Start
                 </button>
             </div>
+
         </div>
         <script src="quiz.js"></script>
     </body>
