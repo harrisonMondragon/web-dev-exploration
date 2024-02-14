@@ -1,41 +1,5 @@
-class User {
-    constructor(username) {
-        this.username = username;
-    }
-}
-
-class Question {
-    constructor(question, options, correctOption) {
-        this.question = question;
-        this.options = options;
-        this.correctOption = correctOption;
-
-        // Add the answer to options and randomize the order
-        options.push(correctOption);
-        options.sort(() => Math.random() - 0.5);
-    }
-}
-
-class Quiz {
-    constructor(questions, name, user) {
-        this.quizQuestions = questions;
-        this.quantity = questions.length;
-        this.score = 0;
-        this.currentQuestionIndex = -1;
-        this.questionAnswered = false;
-        this.name = name;
-        this.user = user;
-    }
-
-    // Generator function to get the next question
-    *nextQuestionGenerator() {
-        while (this.currentQuestionIndex < this.quizQuestions.length - 1) {
-            console.log(this.currentQuestionIndex);
-            yield this.quizQuestions[this.currentQuestionIndex++];
-        }
-    }
-}
-
+let quiz;
+let user;
 const quizContainer = document.getElementById("quiz-container");
 const usernameContainer = document.getElementById("username-container");
 const startContainer = document.getElementById("start-container");
@@ -49,138 +13,159 @@ const correctAnswerContainer = document.getElementById(
 const quizHistoryElement = document.getElementById("quiz-history-item");
 const usernameElement = document.getElementById("username-input");
 
-let quiz;
-let username = "test";
-
-// Function to update the progress bar
-function updateProgressBar(quiz) {
-    const progress =
-        (quiz.currentQuestionIndex / quiz.quizQuestions.length) * 100;
-    console.log(progress);
-    document.querySelector(".progress").style.width = progress + "%";
-}
-
-function grabUsername() {
-    username = usernameElement.value;
-    if (username === "") {
-        username = "test";
+class User {
+    constructor() {
+        this.username = this.grabUsername();
     }
-    console.log(username);
-    usernameContainer.style.display = "none";
-    startContainer.style.display = "block";
+
+    grabUsername() {
+        let username = usernameElement.value;
+        username = username === "" ? "user" : username;
+        usernameContainer.style.display = "none";
+        startContainer.style.display = "block";
+        return username;
+    }
+
+    showQuizHistory() {
+        const quizHistory =
+            JSON.parse(localStorage.getItem(this.username)) || [];
+        quizHistoryElement.innerHTML = "";
+        quizHistory.forEach((quizData) => {
+            const quizItem = document.createElement("p");
+            quizItem.textContent = `${quizData.name} - Score: ${quizData.score}/${quizData.quantity}`;
+            quizHistoryElement.appendChild(quizItem);
+        });
+    }
+
+    saveDataToBrowser(score, quantity, name) {
+        const dataToSave = {
+            score: score,
+            quantity: quantity,
+            name: name,
+        };
+        let quizHistory = localStorage.getItem(this.username);
+        quizHistory = quizHistory ? JSON.parse(quizHistory) : [];
+        quizHistory.unshift(dataToSave);
+        localStorage.setItem(this.username, JSON.stringify(quizHistory));
+    }
 }
 
-function showQuizHistory() {
-    const quizHistory = JSON.parse(localStorage.getItem(username)) || [];
-    quizHistoryElement.innerHTML = "";
-    quizHistory.forEach((quizData) => {
-        const listItem = document.createElement("p");
-        listItem.textContent = `${quizData.name} - Score: ${quizData.score}/${quizData.quantity}`;
-        quizHistoryElement.appendChild(listItem);
-    });
+class Question {
+    constructor(question, options, correctOption) {
+        this.question = question;
+        this.options = options;
+        this.correctOption = correctOption;
+        options.push(correctOption);
+        options.sort(() => Math.random() - 0.5);
+    }
 }
 
-// Function to start the quiz
-async function startQuiz() {
-    try {
-        quiz = await fetchQuestions();
+class Quiz {
+    constructor(questions, name) {
+        this.quizQuestions = questions;
+        this.quantity = questions.length;
+        this.score = 0;
+        this.currentQuestionIndex = -1;
+        this.name = name;
+    }
+
+    startQuiz() {
         startContainer.style.display = "none";
         questionContainer.style.display = "block";
-        nextQuestion(quiz);
-    } catch (error) {
-        console.error("Error starting quiz:", error);
+        this.nextQuestion();
     }
-}
 
-function displayQuestion(quiz) {
-    correctAnswerContainer.style.display = "none";
-    const currentQuestion = quiz.quizQuestions[quiz.currentQuestionIndex];
-    questionElement.innerText = currentQuestion.question;
-
-    optionsElement.innerHTML = "";
-    currentQuestion.options.forEach((option) => {
-        const button = document.createElement("button");
-        button.innerText = option;
-        button.classList.add("option-btn");
-        button.addEventListener("click", (event) => checkAnswer(event, quiz));
-        optionsElement.appendChild(button);
-    });
-
-    updateProgressBar(quiz);
-}
-
-function checkAnswer(event, quiz) {
-    if (quiz.questionAnswered) {
-        return; // Exit early if the question has already been answered
+    nextQuestion() {
+        const nextQuestionIterator = this.nextQuestionGenerator().next();
+        !nextQuestionIterator.done
+            ? this.displayQuestion(nextQuestionIterator.value)
+            : this.showResults();
     }
-    let wasCorrect = false;
-    const selectedOption = event.target.innerText;
-    const correctAnswer =
-        quiz.quizQuestions[quiz.currentQuestionIndex].correctOption;
-    if (selectedOption === correctAnswer) {
-        wasCorrect = true;
-        quiz.score++;
-    }
-    disableOptions(selectedOption, correctAnswer);
-    displayCorrectAnswer(quiz, wasCorrect);
-}
 
-function disableOptions(selectedOption) {
-    const answerButtons = document.querySelectorAll(".option-btn");
-    answerButtons.forEach((button) => {
-        if (button.innerText === selectedOption) {
-            button.classList.add("selected-option");
+    *nextQuestionGenerator() {
+        while (this.currentQuestionIndex < this.quizQuestions.length - 1) {
+            yield this.quizQuestions[this.currentQuestionIndex++];
         }
-        button.disabled = true;
-    });
-}
-
-function displayCorrectAnswer(quiz, wasCorrect) {
-    quiz.questionAnswered = true;
-    const correctAnswer =
-        quiz.quizQuestions[quiz.currentQuestionIndex].correctOption;
-    correctAnswerContainer.style.display = "block";
-    if (wasCorrect) {
-        correctAnswerContainer.style.backgroundColor = "green";
-    } else {
-        correctAnswerContainer.style.backgroundColor = "red";
     }
-    document.getElementById("correct-answer").innerText = correctAnswer;
-    document.getElementById("current-score").innerText = quiz.score;
-}
 
-function nextQuestion(quiz) {
-    const nextQuestionIterator = quiz.nextQuestionGenerator().next();
-    if (!nextQuestionIterator.done) {
-        quiz.questionAnswered = false;
-        displayQuestion(quiz, nextQuestionIterator.value);
-    } else {
-        showResults(quiz);
+    displayQuestion() {
+        correctAnswerContainer.style.display = "none";
+        const currentQuestion = this.quizQuestions[this.currentQuestionIndex];
+        questionElement.innerText = currentQuestion.question;
+        optionsElement.innerHTML = "";
+        currentQuestion.options.forEach((option) => {
+            const button = document.createElement("button");
+            button.innerText = option;
+            button.classList.add("option-btn");
+            button.addEventListener("click", (event) =>
+                this.checkAnswer(event)
+            );
+            optionsElement.appendChild(button);
+        });
+        this.updateProgressBar();
+    }
+
+    checkAnswer(event) {
+        let wasCorrect = false;
+        const selectedOption = event.target.innerText;
+        const correctAnswer =
+            this.quizQuestions[this.currentQuestionIndex].correctOption;
+        if (selectedOption === correctAnswer) {
+            wasCorrect = true;
+            this.score++;
+        }
+        this.disableOptions(selectedOption);
+        this.displayCorrectAnswer(wasCorrect);
+    }
+
+    updateProgressBar() {
+        const progress =
+            (this.currentQuestionIndex / this.quizQuestions.length) * 100 + 10;
+        document.querySelector(".progress").style.width = progress + "%";
+    }
+
+    disableOptions(selectedOption) {
+        const answerButtons = document.querySelectorAll(".option-btn");
+        answerButtons.forEach((button) => {
+            if (button.innerText === selectedOption) {
+                button.classList.add("selected-option");
+            }
+            button.disabled = true;
+        });
+    }
+
+    displayCorrectAnswer(wasCorrect) {
+        const correctAnswer =
+            this.quizQuestions[this.currentQuestionIndex].correctOption;
+        correctAnswerContainer.style.display = "block";
+        correctAnswerContainer.style.backgroundColor = wasCorrect
+            ? "green"
+            : "red";
+        document.getElementById("correct-answer").innerText = correctAnswer;
+        document.getElementById("current-score").innerText = this.score;
+    }
+
+    showResults() {
+        user.saveDataToBrowser(this.score, this.quantity, this.name);
+        questionContainer.style.display = "none";
+        resultsContainer.style.display = "block";
+        document.getElementById("score").innerText = this.score;
+    }
+
+    returnToStart() {
+        resultsContainer.style.display = "none";
+        startContainer.style.display = "block";
     }
 }
 
-function showResults(quiz) {
-    saveDataToBrowser(quiz.score, quiz.quantity, quiz.name, quiz.user);
-    questionContainer.style.display = "none";
-    document.getElementById("results-container").style.display = "block";
-    document.getElementById("score").innerText = quiz.score;
+function setupQuiz() {
+    user = new User();
 }
 
-function returnToStart() {
-    resultsContainer.style.display = "none";
-    startContainer.style.display = "block";
-}
-
-function saveDataToBrowser(score, quantity, name, username) {
-    const jsonData = {
-        name: name,
-        score: score,
-        quantity: quantity,
-    };
-    let quizHistory = localStorage.getItem(`${username}`);
-    quizHistory = quizHistory ? JSON.parse(quizHistory) : [];
-    quizHistory.push(jsonData);
-    localStorage.setItem(`${username}`, JSON.stringify(quizHistory));
+async function runQuiz() {
+    quizQuestions = await fetchQuestions();
+    quiz = new Quiz(quizQuestions, "Medium Geography Quiz");
+    quiz.startQuiz();
 }
 
 async function fetchQuestions() {
@@ -198,18 +183,13 @@ async function fetchQuestions() {
                 decodeString(questionData.correct_answer)
             );
         });
-        console.log(questionArray);
-        return new Quiz(
-            questionArray,
-            JSON.stringify("Medium Geography Quiz"),
-            username
-        );
+        return questionArray;
     } catch (error) {
         location.reload();
         window.alert(
             "Error fetching questions, you have been redirected to the home page. Please try again in a few moments."
         );
-        console.error("here Error fetching questions:", error);
+        console.error("Error fetching questions:", error);
     }
 
     function decodeString(string) {
