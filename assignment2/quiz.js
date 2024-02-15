@@ -75,7 +75,9 @@ class Quiz {
     }
 
     nextQuestion() {
-        const nextQuestionIterator = this.nextQuestionGenerator().next();
+        const currentQuestion = this.nextQuestionGenerator.call(this);
+        const nextQuestionIterator = currentQuestion.next();
+
         !nextQuestionIterator.done
             ? this.displayQuestion(nextQuestionIterator.value)
             : this.showResults();
@@ -96,9 +98,7 @@ class Quiz {
             const button = document.createElement("button");
             button.innerText = option;
             button.classList.add("option-button");
-            button.addEventListener("click", (event) =>
-                this.checkAnswer(event)
-            );
+            button.addEventListener("click", this.checkAnswer.bind(this)); // Here's the change
             optionsElement.appendChild(button);
         });
         this.updateProgressBar();
@@ -144,7 +144,7 @@ class Quiz {
     }
 
     showResults() {
-        user.saveDataToBrowser(this.score, this.quantity, this.name);
+        user.saveDataToBrowser.apply(user, [this.score, this.quantity, this.name]);
         questionContainer.style.display = "none";
         resultsContainer.style.display = "block";
         document.getElementById("score").innerText = this.score;
