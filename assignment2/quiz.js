@@ -1,3 +1,5 @@
+// ChatGPT was utilized to solve problems and understand concepts
+
 let quiz;
 let user;
 
@@ -98,7 +100,7 @@ class Quiz {
             const button = document.createElement("button");
             button.innerText = option;
             button.classList.add("option-button");
-            button.addEventListener("click", this.checkAnswer.bind(this)); // Here's the change
+            button.addEventListener("click", this.checkAnswer.bind(this));
             optionsElement.appendChild(button);
         });
         this.updateProgressBar();
