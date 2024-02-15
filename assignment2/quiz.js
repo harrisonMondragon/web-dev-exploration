@@ -1,5 +1,6 @@
 let quiz;
 let user;
+
 const quizContainer = document.getElementById("quiz-container");
 const usernameContainer = document.getElementById("username-container");
 const startContainer = document.getElementById("start-container");
@@ -7,9 +8,7 @@ const questionContainer = document.getElementById("question-container");
 const resultsContainer = document.getElementById("results-container");
 const questionElement = document.getElementById("question");
 const optionsElement = document.getElementById("options");
-const correctAnswerContainer = document.getElementById(
-    "correct-answer-container"
-);
+const correctAnswerContainer = document.getElementById("correct-answer-container");
 const quizHistoryElement = document.getElementById("quiz-history-item");
 const usernameElement = document.getElementById("username-input");
 
@@ -119,8 +118,7 @@ class Quiz {
     }
 
     updateProgressBar() {
-        const progress =
-            (this.currentQuestionIndex / this.quizQuestions.length) * 100 + 10;
+        const progress = (this.currentQuestionIndex / this.quizQuestions.length) * 100 + 10;
         document.querySelector(".progress").style.width = progress + "%";
     }
 
@@ -171,7 +169,7 @@ async function runQuiz() {
 async function fetchQuestions() {
     try {
         const response = await fetch(
-            "https://opentdb.com/api.php?amount=3&category=22&difficulty=medium&type=multiple"
+            "https://opentdb.com/api.php?amount=10&category=22&difficulty=medium&type=multiple"
         );
         const data = await response.json();
         const questionArray = data.results.map((questionData) => {

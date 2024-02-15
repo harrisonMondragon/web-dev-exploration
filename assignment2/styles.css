@@ -27,14 +27,11 @@ body {
     border: 2px solid #3C3633;
 }
 
-/* ----- Containers -----HAVE NOT TOUCHED THIS YET */
+/* ----- Miscellaneous ----- */
 
 #quiz-history-item {
-    list-style-type: none;
-}
-
-#start-container {
-    text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 #question-container {
@@ -50,12 +47,10 @@ body {
 }
 
 #current-score-container {
-    display: flex; /* Use flexbox layout */
-    align-items: center; /* Align items vertically */
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
-
-/* ----- Random -----HAVE NOT TOUCHED THIS YET */
 
 #question {
     margin-top: 20px;
