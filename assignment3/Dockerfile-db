@@ -1,0 +1,20 @@
+# Dockerfile‐db
+
+# Base image
+FROM mysql:5.7
+
+# Custom configuration
+COPY my.cnf /etc/mysql/conf.d/
+
+ # Initialization scripts
+COPY ./scripts/ /docker-entrypoint-initdb.d/
+
+ # Time zone data
+RUN apt-get update && apt-get install -y tzdata
+ENV TZ=America/Edmonton
+
+# Health check
+HEALTHCHECK CMD mysqladmin ping -h localhost
+
+# Monitors
+RUN apt-get update && apt-get install -y mytop percona-toolkit
