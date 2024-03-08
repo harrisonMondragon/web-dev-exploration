@@ -1,21 +1,16 @@
-# Dockerfile‐web
-
-# Specify the base image using Apache and php 7.4
-FROM php:7.4-apache
-
-# Typically the root dir where Apache serves PHP
+FROM php:8.3.2-apache
 WORKDIR /var/www/html
-
-# PHP Data Object for universal sql
 RUN docker-php-ext-install pdo pdo_mysql
 
 # Update package manager, install git, unzip and composer
-RUN apt-get update && apt-get install -y git unzip && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN apt-get update && apt-get install -y git unzip \
+    && curl -sS https://getcomposer.org/installer \
+    | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copies contents of host machine to php location
+# we'll mount the volume in docker-compose so don't need to copy
+# however, if you are using this for production then may want it
+# leaving it in doesn't hurt
 COPY src/ /var/www/html/
-# But we'll mount a volume in docker‐compose so not necessary
-# BUT if you use this for both production/dev, then may want it for prod
 
 # Install the symfony/yaml package via Composer
 RUN composer require symfony/yaml
