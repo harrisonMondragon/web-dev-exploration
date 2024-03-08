@@ -1,22 +1,37 @@
-.landing-page {
-	display: flex;
-	flex-direction: column;
-  justify-content: center;
-	align-items: center;
-  background-color: #FFEDD8;
+body {
   height: 100vh;
-}
-
-h1 {
+  width: 100vw;
+  margin: 0;
+  background-color: #FFEDD8;
   color: #240A34;
 }
 
-.buttons-container {
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	gap: 2rem;
-  padding: 25px
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  border: 1px #240A34;
+  height: 2.5rem;
+  width: 20rem;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+label{
+  align-self: flex-start;
+  padding-left: 1rem;
 }
 
 button {
@@ -29,6 +44,7 @@ button {
 	margin-left: 5rem;
 	font-size: 1.3rem;
 	cursor: pointer;
+  margin: 1rem;
 }
 
 button:hover {
