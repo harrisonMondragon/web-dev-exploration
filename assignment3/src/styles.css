@@ -1,0 +1,36 @@
+.landing-page {
+	display: flex;
+	flex-direction: column;
+  justify-content: center;
+	align-items: center;
+  background-color: #FFEDD8;
+  height: 100vh;
+}
+
+h1 {
+  color: #240A34;
+}
+
+.buttons-container {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	gap: 2rem;
+  padding: 25px
+}
+
+button {
+	background-color: #240A34;
+  color: #FFEDD8;
+	width: 20rem;
+	height: 3rem;
+	border: 0px;
+	margin-right: 5rem;
+	margin-left: 5rem;
+	font-size: 1.3rem;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #891652;
+}
