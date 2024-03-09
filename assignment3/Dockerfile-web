@@ -1,6 +1,13 @@
-FROM php:latest-apache
+# FROM php:latest-apache
+FROM php:8.3.2-apache
+
 WORKDIR /var/www/html
 RUN docker-php-ext-install pdo pdo_mysql
+
+# Update package lists and install required packages
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    && docker-php-ext-install zip mysqli
 
 # Update package manager, install git, unzip and composer
 RUN apt-get update && apt-get install -y git unzip \
