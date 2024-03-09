@@ -10,8 +10,10 @@ session_start();
         $password = $_POST['password'];
 
         if(!empty($username) && !empty($password) && !is_numeric($username)){
+
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             //save to database
-            $query = "insert into users (username, password) values ('$username', '$password')";
+            $query = "insert into users (username, password) values ('$username', '$hashed_password')";
 
             mysqli_query($con, $query);
 
