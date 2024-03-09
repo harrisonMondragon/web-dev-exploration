@@ -1,7 +1,6 @@
 # FROM mysql:latest
 FROM mysql:8.0-debian
 
-
 # Set the desired directories
 ENV MYSQL_LOG_DIR /var/log/mysql
 ENV MYSQL_DATA_DIR /var/lib/mysql
