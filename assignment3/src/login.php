@@ -12,6 +12,11 @@
             if($result){
                 if($result && mysqli_num_rows($result) > 0){
                     $user_data = mysqli_fetch_assoc($result);
+                    if($username == "admin" && password_verify($password, $user_data['password'])){
+                        $_SESSION['id'] = "admin";
+                        header("Location: admin.php");
+                        die;
+                    }
                     if(password_verify($password, $user_data['password'])){
                         $_SESSION['id'] = $user_data['id'];
                         header("Location: home.php");
@@ -42,6 +47,7 @@
                 <label for="password">Password:</label><br>
                 <input type="password" id="password" name="password" required><br><br>
                 <button type="submit" name="login">Login</button>
+                <a href="signup.php">Don't have an account? Sign up!</a>
             </form>
         </div>
     </body>

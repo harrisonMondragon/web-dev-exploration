@@ -36,6 +36,7 @@
                 <label for="confirm_password">Confirm Password:</label><br>
                 <input type="password" id="confirm_password" name="confirm_password" required><br><br>
                 <button type="submit" name="signup">Signup</button>
+                <a href="login.php">Already have an account? Login!</a>
             </form>
         </div>
     </body>
