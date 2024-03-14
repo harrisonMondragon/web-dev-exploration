@@ -1,4 +1,3 @@
-# FROM mysql:latest
 FROM mysql:8.0-debian
 
 # Set the desired directories
