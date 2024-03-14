@@ -3,7 +3,7 @@
     session_start();
     include("connection.php");
 
-    function check_login($con) {
+    function check_authenticated($con) {
         if(isset($_SESSION['id'])){
             $id = $_SESSION['id'];
             $query = "select * from users where id = '$id' limit 1";
@@ -17,7 +17,7 @@
         die;
     }
 
-    $user_data = check_login($con);
+    $user_data = check_authenticated($con);
 
 ?>
 

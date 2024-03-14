@@ -11,6 +11,25 @@
             echo "Error deleting user!";
         }
     }
+
+    function check_admin_authenticated($con) {
+        if(isset($_SESSION['id'])){
+            $id = $_SESSION['id'];
+            $query = "select * from users where id = '$id' limit 1";
+            $result = mysqli_query($con, $query);
+            if($result && mysqli_num_rows($result) > 0){
+                $user_data = mysqli_fetch_assoc($result);
+                if($user_data['username'] == "admin"){
+                    return;
+                }
+            }
+        }
+        header("Location: login.php");
+        die;
+    }
+
+    check_admin_authenticated($con);
+
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +46,7 @@
                     <tr>
                         <th>User ID</th>
                         <th>Username</th>
+                        <th>Password</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -42,7 +62,10 @@
                                     echo "<tr>";
                                     echo "<td>" . $row["id"] . "</td>";
                                     echo "<td>" . $row["username"] . "</td>";
-                                    echo "<td><form method='post'><input type='hidden' name='deleteId' value='" . $row['id'] . "'><button type='submit' name='deleteUser'>Delete User</button></form></td>";
+                                    echo "<td>" . $row["password"] . "</td>";
+                                    if ($row['username'] != "admin") {
+                                        echo "<td><form method='post'><input type='hidden' name='deleteId' value='" . $row['id'] . "'><button type='submit' name='deleteUser'>Delete User</button></form></td>";
+                                    }
                                     echo "</tr>";
                                 }
                             } else {

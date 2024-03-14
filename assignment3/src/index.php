@@ -1,7 +1,28 @@
 <?php
 
     session_start();
-    
+    include("connection.php");
+
+    function check_user($con) {
+        if(isset($_SESSION['id'])){
+            $id = $_SESSION['id'];
+            $query = "select * from users where id = '$id' limit 1";
+            $result = mysqli_query($con, $query);
+            if($result && mysqli_num_rows($result) > 0) {
+                $user_data = mysqli_fetch_assoc($result);
+                if($user_data['username'] == "admin"){
+                    header("Location: admin.php");
+                    die;
+                } else {
+                    header("Location: home.php");
+                    die;
+                }
+            }
+        }
+    }
+
+    check_user($con);
+
 ?>
 
 <!DOCTYPE html>
