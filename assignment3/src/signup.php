@@ -27,7 +27,7 @@
             $message = "Please enter some valid information!";
         }
     }
-    
+
     function check_user($con) {
         if(isset($_SESSION['id'])){
             $id = $_SESSION['id'];
@@ -47,7 +47,7 @@
     }
 
     check_user($con);
-    
+
 ?>
 
 <!DOCTYPE html>

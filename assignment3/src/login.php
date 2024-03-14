@@ -7,16 +7,12 @@
         $username = $_POST['username'];
         $password = $_POST['password'];
         if(!empty($username) && !empty($password) && !is_numeric($username)){
+            // Check for regular users
             $query = "select * from users where username = '$username' limit 1";
             $result = mysqli_query($con, $query);
             if($result){
                 if($result && mysqli_num_rows($result) > 0){
                     $user_data = mysqli_fetch_assoc($result);
-                    if($username == "admin" && password_verify($password, $user_data['password'])){
-                        $_SESSION['id'] = $user_data['id'];
-                        header("Location: admin.php");
-                        die;
-                    }
                     if(password_verify($password, $user_data['password'])){
                         $_SESSION['id'] = $user_data['id'];
                         header("Location: home.php");
@@ -24,12 +20,26 @@
                     }
                 }
             }
+            // Check for admins
+            $aQuery = "select * from admins where username = '$username' limit 1";
+            $aResult = mysqli_query($con, $aQuery);
+            if($aResult){
+                if($aResult && mysqli_num_rows($aResult) > 0){
+                    $admin_data = mysqli_fetch_assoc($aResult);
+                    if($password === $admin_data['password']){
+                        $_SESSION['id'] = $admin_data['id'];
+                        header("Location: admin.php");
+                        die;
+                    }
+                }
+            }
+
             echo "Please enter some valid information!";
         }else{
             echo "Please enter some valid information!";
         }
     }
-    
+
     function check_user($con) {
         if(isset($_SESSION['id'])){
             $id = $_SESSION['id'];
@@ -49,7 +59,7 @@
     }
 
     check_user($con);
-    
+
 ?>
 
 <!DOCTYPE html>

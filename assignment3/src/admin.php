@@ -1,7 +1,7 @@
 <?php
     session_start();
-    include("connection.php");  
-    
+    include("connection.php");
+
     if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['deleteUser'])) {
         $deleteId = $_POST['deleteId'];
         $query = "DELETE FROM users WHERE id = '$deleteId'";
@@ -15,13 +15,14 @@
     function check_admin_authenticated($con) {
         if(isset($_SESSION['id'])){
             $id = $_SESSION['id'];
-            $query = "select * from users where id = '$id' limit 1";
+            $query = "select * from admins where id = '$id' limit 1";
             $result = mysqli_query($con, $query);
             if($result && mysqli_num_rows($result) > 0){
-                $user_data = mysqli_fetch_assoc($result);
-                if($user_data['username'] == "admin"){
-                    return;
-                }
+                return;
+                // $user_data = mysqli_fetch_assoc($result);
+                // if($user_data['username'] == "admin"){
+                //     return;
+                // }
             }
         }
         header("Location: login.php");
