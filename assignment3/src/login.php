@@ -2,6 +2,7 @@
 
     session_start();
     include("connection.php");
+    $message = "";
 
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         $username = $_POST['username'];
@@ -34,9 +35,9 @@
                 }
             }
 
-            echo "Please enter some valid information!";
+            $message = "Please enter some valid information!";
         }else{
-            echo "Please enter some valid information!";
+            $message = "Please fill in all fields";
         }
     }
 
@@ -71,6 +72,11 @@
     <body>
         <div class="container">
             <h1>Login</h1>
+            <?php if (!empty($message)) : ?>
+                <div class=popup>
+                    <p><?php echo $message; ?></p>
+                </div>
+            <?php endif; ?>
             <form method="post">
                 <label for="username">Username:</label><br>
                 <input type="text" id="username" name="username" required><br>

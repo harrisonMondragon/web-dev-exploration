@@ -11,6 +11,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color:#240a34;
     height: 100%;
     width: 100%;
 }
@@ -32,10 +33,12 @@ input {
 label {
     align-self: flex-start;
     padding-left: 1rem;
+    /* color:#240a34; */
 }
 
 button {
     background-color: #240a34;
+    border: 3px solid #240a34;
     color: #ffedd8;
     width: 20rem;
     height: 3rem;
@@ -49,4 +52,14 @@ button {
 
 button:hover {
     background-color: #891652;
+    border: 3px solid #240a34;
+}
+
+.popup{
+    background-color: #EABE6C;
+    border-radius: 5px;
+    color: #240a34;
+    width: 20rem;
+    text-align: center;
+    margin-bottom: 2rem;
 }

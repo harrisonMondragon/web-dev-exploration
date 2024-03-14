@@ -60,7 +60,9 @@
         <div class="container">
             <h1>Signup</h1>
             <?php if (!empty($message)) : ?>
-                <p><?php echo $message; ?></p>
+                <div class=popup>
+                    <p><?php echo $message; ?></p>
+                </div>
             <?php endif; ?>
             <form method="post">
                 <label for="username">Username:</label><br>
