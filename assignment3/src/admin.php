@@ -19,10 +19,6 @@
             $result = mysqli_query($con, $query);
             if($result && mysqli_num_rows($result) > 0){
                 return;
-                // $user_data = mysqli_fetch_assoc($result);
-                // if($user_data['username'] == "admin"){
-                //     return;
-                // }
             }
         }
         header("Location: login.php");
@@ -42,7 +38,7 @@
     <body>
         <div class="container">
             <h1>Welcome to the Admin Panel</h1>
-            <table>
+            <table class="user-table">
                 <thead>
                     <tr>
                         <th>User ID</th>

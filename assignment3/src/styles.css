@@ -33,7 +33,6 @@ input {
 label {
     align-self: flex-start;
     padding-left: 1rem;
-    /* color:#240a34; */
 }
 
 button {
@@ -62,4 +61,12 @@ button:hover {
     width: 20rem;
     text-align: center;
     margin-bottom: 2rem;
+}
+
+.user-table{
+    height: 90%;
+    width: 90%;
+    table-layout: fixed;
+    display: block;
+    overflow-y: scroll;
 }
